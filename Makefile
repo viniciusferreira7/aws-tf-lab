@@ -2,7 +2,6 @@ DIR = day-$(DAY)-$(NAME)
 
 new:
 	cp -r _shared/ $(DIR)
-	@echo 'terraform {\n  backend "s3" {\n    bucket         = "aws-tf-lab-state"\n    key            = "$(DIR)/terraform.tfstate"\n    region         = "us-east-1"\n    dynamodb_table = "aws-tf-lab-lock"\n    encrypt        = true\n  }\n}' > $(DIR)/backend.tf
 	touch $(DIR)/main.tf $(DIR)/variables.tf $(DIR)/outputs.tf
 	@echo "✓ $(DIR)/ criado — bora implementar"
 

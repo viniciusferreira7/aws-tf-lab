@@ -1,38 +1,40 @@
 # aws-tf-lab
 
-Laboratório pessoal de estudo de AWS via Terraform. Cada `day-NN-<recurso>/` é um exercício independente com backend remoto.
+Hands-on AWS study lab — provisioning services exclusively via Terraform, one exercise per day.
 
-## Estrutura
+Each `day-NN-<resource>/` is a self-contained exercise with its own state. No AWS Console, no AWS CLI for resource creation — Terraform only.
+
+## Structure
 
 ```
-_bootstrap/   → cria S3 (state) + DynamoDB (lock) — rodar uma vez
-_modules/     → módulos extraídos dos exercícios
-_shared/      → provider, versions e locals copiados para cada day-NN
-day-NN-*/     → um exercício por dia
+_bootstrap/   → creates S3 (state) + DynamoDB (lock) — run once (optional)
+_modules/     → reusable modules extracted from exercises
+_shared/      → provider, versions and locals copied into each day-NN
+day-NN-*/     → one independent exercise per day
 ```
 
-## Setup inicial
+## Getting started
 
 ```bash
-cd _bootstrap
-terraform init
-terraform apply
+# Start a new day
+make new DAY=02 NAME=nat-gateway
+
+# Work the exercise
+make init   DAY=02 NAME=nat-gateway
+make plan   DAY=02 NAME=nat-gateway
+make apply  DAY=02 NAME=nat-gateway
+
+# Always destroy at the end to avoid costs
+make destroy DAY=02 NAME=nat-gateway
 ```
 
-Depois copie os outputs para `_shared/backend.tf.tpl`.
+## Study plan
 
-## Começar um novo dia
+10 weeks covering: IAM → VPC → Compute → Storage → Databases → Messaging → Containers → Security → Observability → Capstone.
 
-```bash
-make new DAY=07 NAME=nat-gateway
-# editar day-07-nat-gateway/ e implementar
-make init   DAY=07 NAME=nat-gateway
-make apply  DAY=07 NAME=nat-gateway
-make destroy DAY=07 NAME=nat-gateway
-```
+## Conventions
 
-## Convenções
-
-- `terraform destroy` sempre ao final do dia para evitar custo.
-- Commit por dia: `git commit -m "day-NN: <recurso>"`.
-- Variáveis sensíveis em `terraform.tfvars` (ignorado pelo git).
+- `terraform destroy` at the end of every session — no leftover costs.
+- One commit per day: `git commit -m "day-NN: <resource>"`.
+- Sensitive values go in `terraform.tfvars` (gitignored).
+- No hardcoded values — variables and outputs always.
