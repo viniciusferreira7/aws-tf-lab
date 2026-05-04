@@ -22,3 +22,18 @@ resource "aws_s3_bucket_public_access_block" "study_bucket" {
   restrict_public_buckets = true
 }
 
+data "aws_iam_policy_document" "s3_read_only" {
+  statement {
+    sid = "AllowListBucket"
+    effect = "Allow"
+    actions = ["s3:ListBucket"]
+    resources = [aws_s3_bucket.study_bucket.arn]
+  }
+
+  statement {
+    sid    = "AllowGetObject"
+    effect = "Allow"
+    actions = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.study_bucket.arn}/*"]
+  }
+}
