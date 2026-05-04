@@ -3,7 +3,7 @@
 # Implemente aqui.
 # Docs: https://claude.ai/chat/b56e5225-534f-45f9-b609-876f629b663c
 
-resource "aws_s3_bucket" "s3_bucket" {
+resource "aws_s3_bucket" "study_bucket" {
   bucket = "${var.s3_bucket_name}-${var.aws.region}-${random_id.suffix.hex}"
 
   tags = var.s3_tags
@@ -12,5 +12,13 @@ resource "aws_s3_bucket" "s3_bucket" {
 resource "resource random_id name {
   byte_length = 4
 }
-"
+
+resource "aws_s3_bucket_public_access_block" "study_bucket" {
+  bucket = aws_s3_bucket.study_bucket.id
+
+  block_public_acls= true
+  block_public_policy = true
+  ignore_public_acls = true
+  restrict_public_buckets = true
+}
 
