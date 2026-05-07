@@ -43,3 +43,12 @@ resource "aws_iam_policy" "s3_read_only" {
   description = "Allow list and download study bucket. Least privilege"
   policy = aws_iam_policy_document.s3_read_only.json
 }
+
+resource "aws_iam_group" "s3_readers" {
+  name = "s3_readers"
+}
+
+resource "aws_iam_policy_attachment" "s3_read_only" {
+  group = aws_iam_group.s3_readers.name
+  policy_arn = aws_iam_policy.s3_read_only.arn
+}
