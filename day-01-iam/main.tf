@@ -52,3 +52,16 @@ resource "aws_iam_policy_attachment" "s3_read_only" {
   group = aws_iam_group.s3_readers.name
   policy_arn = aws_iam_policy.s3_read_only.arn
 }
+
+resource "aws_iam_user" "vinicius_s3" {
+  name = "vinicius-s3"
+  force_destroy = true
+}
+
+resource "aws_iam_user_group_membership" "vinicius_s3" {
+  user = aws_iam_user.vinicius_s3.name
+
+  groups = [
+    aws_iam_group.s3_readers.name
+  ]
+}
