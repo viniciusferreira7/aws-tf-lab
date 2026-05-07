@@ -37,3 +37,9 @@ data "aws_iam_policy_document" "s3_read_only" {
     resources = ["${aws_s3_bucket.study_bucket.arn}/*"]
   }
 }
+
+resource "aws_iam_policy" "s3_read_only" {
+  name = "${var.project_name}-s3-read-only"
+  description = "Allow list and download study bucket. Least privilege"
+  policy = aws_iam_policy_document.s3_read_only.json
+}
