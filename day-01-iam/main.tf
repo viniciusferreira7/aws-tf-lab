@@ -65,3 +65,7 @@ resource "aws_iam_user_group_membership" "vinicius_s3" {
     aws_iam_group.s3_readers.name
   ]
 }
+
+resource "aws_iam_access_key" "vinicius_s3" {
+  user = aws_iam_user.vinicius_s3.name
+}
