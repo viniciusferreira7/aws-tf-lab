@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "study_bucket" {
   tags = var.s3_tags
 }
 
-resource "resource random_id name {
+resource "random_id" "suffix" {
   byte_length = 4
 }
 
