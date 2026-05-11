@@ -5,7 +5,7 @@ variable "aws_region" {
 }
 
 
-variable "s3_bucket_name" {
+variable "project_name" {
   type        = string
   default     = "s3_bucket"
   description = "S3 bucket name using as prefix"

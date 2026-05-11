@@ -1,7 +1,7 @@
 # Outputs do Day 01
 # Ex: user ARN, group name, policy ARN
 output "bucket_name" {
-  value       = aws_s3_bucket.study_body.id
+  value       = aws_s3_bucket.study_bucket.id
   description = "Bucket name created - it necessary to tests using CLI"
 }
 
